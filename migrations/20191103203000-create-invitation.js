@@ -29,7 +29,7 @@ module.exports = {
       },
       status: {
         type: Sequelize.ENUM.apply(null, Object.keys(INVITATION_TYPES)),
-        defaultValue: INVITATION_TYPES.ppending,
+        defaultValue: INVITATION_TYPES.pending,
       },
     });
 
