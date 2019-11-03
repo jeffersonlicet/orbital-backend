@@ -1,6 +1,4 @@
-import { INVITATION_TYPES } from '../helpers/invitation';
-
-const TABLE_NAME = 'invitations';
+const TABLE_NAME = 'friends';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -15,27 +13,19 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      inviterId: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      inviteeId: {
+      friendId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      status: {
-        type: Sequelize.ENUM.apply(null, Object.keys(INVITATION_TYPES)),
-        defaultValue: INVITATION_TYPES.pending,
       },
     });
 
-    await queryInterface.addConstraint(TABLE_NAME, ['inviterId'], {
+    await queryInterface.addConstraint(TABLE_NAME, ['userId'], {
       type: 'FOREIGN KEY',
-      name: 'FK_invitation_inviterId_user',
+      name: 'FK_friends_userId_user',
       references: {
         table: 'users',
         field: 'id',
@@ -44,9 +34,9 @@ module.exports = {
       onUpdate: 'no action',
     });
 
-    await queryInterface.addConstraint(TABLE_NAME, ['inviteeId'], {
+    await queryInterface.addConstraint(TABLE_NAME, ['friendId'], {
       type: 'FOREIGN KEY',
-      name: 'FK_invitation_inviteeId_user',
+      name: 'FK_friends_friendId_user',
       references: {
         table: 'users',
         field: 'id',
