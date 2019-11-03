@@ -1,8 +1,12 @@
 import express from 'express';
 import { Sequelize } from 'sequelize';
+import {
+  development,
+} from './config/config';
 
-const sequelize = new Sequelize('orbital', 'root', 'rootroot', {
-  host: 'localhost',
+const sequelize = new Sequelize(development.database, development.username, development.password, {
+  host: development.host,
+  port: development.port,
   dialect: 'mysql',
 });
 
