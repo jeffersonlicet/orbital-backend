@@ -6,8 +6,8 @@ module.exports = {
     await queryInterface.bulkInsert(TABLE_NAME, [{
       createdAt: new Date(),
       updatedAt: new Date(),
-      inviter: adhara.id,
-      invitee: baten.id,
+      inviterId: adhara.id,
+      inviteeId: baten.id,
     }]);
   },
 
