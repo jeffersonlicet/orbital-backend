@@ -1,10 +1,18 @@
-module.exports = (sequelize, DataTypes) => {
-  const invitation = sequelize.define('invitation', {
-    id: DataTypes.STRING,
-  }, {});
+import Sequelize from 'sequelize';
 
-  invitation.associate = (models) => {
-  };
-
-  return invitation;
-};
+export default class Invitation extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init({
+      id: {
+        type: Sequelize.NUMBER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      inviteeId: Sequelize.NUMBER,
+    },
+    {
+      sequelize,
+      modelName: 'invitation',
+    });
+  }
+}
