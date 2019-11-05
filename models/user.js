@@ -1,10 +1,23 @@
-module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define('users', {
-    id: DataTypes.STRING,
-  }, {});
+import Sequelize from 'sequelize';
 
-  user.associate = (models) => {
-  };
+export default class User extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init({
+      id: {
+        type: Sequelize.NUMBER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      username: Sequelize.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'user',
+    });
+  }
 
-  return user;
-};
+  static associate(models) {
+    this.hasMany(models.Invitation, { foreignKey: 'inviterId', as: 'invitationsSent' });
+    this.hasMany(models.Invitation, { foreignKey: 'inviteeId', as: 'invitationsReceived' });
+  }
+}
