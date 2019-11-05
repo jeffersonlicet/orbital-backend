@@ -40,6 +40,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      locationEnabled: {
+        type: Sequelize.BOOLEAN,
+        default: false,
+      },
     },
   ),
 

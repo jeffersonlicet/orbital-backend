@@ -35,7 +35,7 @@ module.exports = {
 
     await queryInterface.addConstraint(TABLE_NAME, ['inviterId'], {
       type: 'FOREIGN KEY',
-      name: 'FK_invitation_inviterId_user',
+      name: 'FK_invitations_inviterId_user',
       references: {
         table: 'users',
         field: 'id',
@@ -46,7 +46,7 @@ module.exports = {
 
     await queryInterface.addConstraint(TABLE_NAME, ['inviteeId'], {
       type: 'FOREIGN KEY',
-      name: 'FK_invitation_inviteeId_user',
+      name: 'FK_invitations_inviteeId_user',
       references: {
         table: 'users',
         field: 'id',
