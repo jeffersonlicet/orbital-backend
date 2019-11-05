@@ -13,14 +13,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      latitude: {
+      position: {
         type: Sequelize.GEOMETRY('POINT'),
         allowNull: false,
       },
-      longitude: {
-        type: Sequelize.GEOMETRY('POINT'),
-        allowNull: false,
-      },
+      createdAt: Sequelize.DATE,
     });
 
     await queryInterface.addConstraint(TABLE_NAME, ['userId'], {

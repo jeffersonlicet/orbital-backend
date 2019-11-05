@@ -13,6 +13,7 @@ module.exports = {
       password: await encrypt('test'),
       username: 'adhara',
       instagram: 'adhara',
+      locationEnabled: true,
     },
     {
       firstname: 'Baten',
@@ -23,6 +24,7 @@ module.exports = {
       password: await encrypt('test'),
       username: 'baten',
       instagram: 'baten',
+      locationEnabled: true,
     },
     {
       firstname: 'Capella',
