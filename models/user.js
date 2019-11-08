@@ -26,8 +26,8 @@ export default class User extends Sequelize.Model {
         attributes: { exclude: ['password', 'email'] },
       },
       scopes: {
-        withPassword: {
-          attributes: { include: ['password'] },
+        admin: {
+          attributes: { },
         },
       },
     });
