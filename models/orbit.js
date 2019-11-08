@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-export default class Invitation extends Sequelize.Model {
+export default class Orbit extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       id: {
