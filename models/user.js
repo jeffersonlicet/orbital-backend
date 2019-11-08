@@ -36,5 +36,6 @@ export default class User extends Sequelize.Model {
   static associate(models) {
     this.hasMany(models.Invitation, { foreignKey: 'inviterId', as: 'invitationsSent' });
     this.hasMany(models.Invitation, { foreignKey: 'inviteeId', as: 'invitationsReceived' });
+    this.hasOne(models.Orbits, { foreignKey: 'userId', as: 'orbit' });
   }
 }
