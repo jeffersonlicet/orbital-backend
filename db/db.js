@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import UserModel from '../models/user';
+import OrbitModel from '../models/orbit';
 import InvitationModel from '../models/invitation';
 
 import {
@@ -8,6 +9,7 @@ import {
 
 const registeredModels = [
   UserModel,
+  OrbitModel,
   InvitationModel,
 ];
 
@@ -39,7 +41,7 @@ Object.keys(models).filter((k) => !!models[k].associate).forEach((k) => {
 const { User } = models;
 
 const a = async () => {
-  const b = await User.findOne({
+  const b = await User.scope('admin').findOne({
     where: { id: 1 },
     include: ['invitationsSent', 'invitationsReceived'],
   });
