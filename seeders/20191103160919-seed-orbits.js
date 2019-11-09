@@ -6,12 +6,18 @@ module.exports = {
     await queryInterface.bulkInsert(TABLE_NAME, [
       {
         createdAt: new Date(),
-        position: queryInterface.sequelize.fn('ST_GeomFromText', 'POINT(50.871962 4.287370999999999)'),
+        position: queryInterface.sequelize.fn(
+          'ST_GeomFromText',
+          'POINT(50.871962 4.287370999999999)',
+        ),
         userId: adhara.id,
       },
       {
         createdAt: new Date(),
-        position: queryInterface.sequelize.fn('ST_GeomFromText', 'POINT(50.871962 4.287370999999999)'),
+        position: queryInterface.sequelize.fn(
+          'ST_GeomFromText',
+          'POINT(50.871962 4.287370999999999)',
+        ),
         userId: baten.id,
       },
     ]);
