@@ -1,6 +1,7 @@
 
 import express from 'express';
 import userRoutes from './routes/user';
+import authRoutes from './routes/auth';
 
 import db from './db/db';
 
