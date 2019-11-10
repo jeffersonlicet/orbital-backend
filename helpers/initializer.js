@@ -7,7 +7,7 @@ const initialize = (filename, dirname, fn) => {
   fs.readdirSync(dirname)
     .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
     .forEach((file) => {
-      fn(path.join(dirname, file));
+      fn(path.join(dirname, file), file.split('.')[0]);
     });
 };
 

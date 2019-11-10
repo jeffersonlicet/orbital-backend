@@ -1,13 +1,16 @@
 
 import express from 'express';
 
-import userRoutes from './routes/user';
-import authRoutes from './routes/auth';
+import initializeModels from './models';
+import initializeRoutes from './routes';
 import initializeControllers from './controllers';
 
-const controllers = initializeControllers({ a: true });
+const { models, sequelize } = initializeModels();
+const controllers = initializeControllers({ models, sequelize });
 
 const app = express();
+initializeRoutes({ ...controllers, app });
+
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {

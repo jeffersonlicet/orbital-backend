@@ -1,7 +1,12 @@
 
-export default class UserController {
+import BaseController from './BaseController';
+
+export default class UserController extends BaseController {
   create(body) {
-    console.log(body);
-    return this;
+  }
+
+  async test() {
+    console.log(await this.userModel.findAll());
+    console.log(' inside controller ');
   }
 }
