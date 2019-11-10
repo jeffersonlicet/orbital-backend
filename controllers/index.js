@@ -3,10 +3,10 @@
 import initialize from '../helpers/initializer';
 
 const initializeControllers = (deps) => {
-  const controllers = [];
-  initialize(__filename, __dirname, (file) => {
+  let controllers = {};
+  initialize(__filename, __dirname, (file, filename) => {
     const Controller = require(file).default;
-    controllers.push(new Controller(deps));
+    controllers = { ...controllers, [`${filename}Controller`]: new Controller(deps) };
   });
   return controllers;
 };
