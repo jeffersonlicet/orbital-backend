@@ -1,11 +1,20 @@
 import express from 'express';
 
-const router = express.Router();
+const authRouter = ({
+  userController,
+}) => {
+  const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Auth base');
-});
+  router.get('/', (req, res) => {
+    userController.test();
+    res.send('Auth base');
+  });
 
-router.post('/signup', (req, res) => {
-  res.send('Sign up route');
-});
+  router.post('/signup', async (req, res) => {
+    res.send(await userController.create(req.body));
+  });
+
+  return router;
+};
+
+export default authRouter;
