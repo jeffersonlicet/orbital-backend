@@ -11,6 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening on port:${PORT}`);
