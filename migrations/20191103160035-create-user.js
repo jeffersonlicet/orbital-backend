@@ -22,6 +22,7 @@ module.exports = {
       username: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       email: {
         type: Sequelize.STRING,
@@ -39,6 +40,7 @@ module.exports = {
       instagram: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       locationEnabled: {
         type: Sequelize.BOOLEAN,
