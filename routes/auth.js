@@ -1,4 +1,6 @@
 import express from 'express';
+import validate from '../helpers/validation';
+import UserSchema from '../schemas/user';
 
 const authRouter = ({
   userController,
@@ -10,7 +12,7 @@ const authRouter = ({
     res.send('Auth base');
   });
 
-  router.post('/signup', async (req, res) => {
+  router.post('/signup', validate(UserSchema), async (req, res) => {
     res.send(await userController.create(req.body));
   });
 
