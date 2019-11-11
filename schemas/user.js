@@ -12,6 +12,7 @@ export default Joi.object({
     .required(),
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
-  instagram: Joi.string(),
-  birthdate: Joi.date(),
+  instagram: Joi.string().required(),
+  birthdate: Joi.date,
+  email: Joi.string().email().required(),
 });
