@@ -29,7 +29,7 @@
     "nodemon": "^1.19.4",
     "supertest": "^4.0.2",
     "mocha": "^6.2.2",
-    "chai": "^4.2.0",
+    "chai": "^4.2.0"
   },
   "scripts": {
     "start": "nodemon --exec babel-node index.js ",
