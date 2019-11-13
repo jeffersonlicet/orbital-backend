@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import { encrypt } from '../helpers/password';
 
 export default class User extends Sequelize.Model {
   static init(sequelize) {
@@ -30,6 +31,12 @@ export default class User extends Sequelize.Model {
         admin: {
           attributes: { },
         },
+      },
+      hooks: {
+        beforeCreate: (user) => encrypt(user.password).then((password) => {
+          // eslint-disable-next-line no-param-reassign
+          user.password = password;
+        }),
       },
     });
   }
