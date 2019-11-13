@@ -11,7 +11,7 @@ module.exports = {
       },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,
-      birthdate: {
+      birthday: {
         type: Sequelize.DATE,
         allowNull: true,
       },
@@ -21,8 +21,7 @@ module.exports = {
       },
       avatar: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
+        allowNull: true,
       },
       email: {
         type: Sequelize.STRING,
