@@ -7,6 +7,7 @@ export default class UserController extends BaseController {
       const user = await this.userModel.create(body);
       return { id: user.id };
     } catch (ex) {
+      console.log(ex);
       return ex;
     }
   }

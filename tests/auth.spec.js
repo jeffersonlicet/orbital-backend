@@ -6,19 +6,38 @@ describe('Auth', () => {
   describe('/signup', () => {
     it('should register a user', async () => {
       const {
-        name, email, dob, picture, login,
+        name, email, dob, picture, password,
       } = await mockUser();
 
       const { status } = await api.post('/auth/signup', {
-        avatar: picture.large,
-        instagram: `${name.first}`,
-        firstname: name.first,
-        lastname: name.last,
         email,
-        password: login.password,
+        password,
         birthday: dob.date,
+        lastname: name.last,
+        avatar: picture.large,
+        firstname: name.first,
+        instagram: `${name.first}`,
       });
 
+      expect(status).equals(200);
+    });
+
+    it('should fail if existing email', async () => {
+      const {
+        name, email, dob, picture, password,
+      } = await mockUser();
+
+      const data = {
+        email,
+        password,
+        birthday: dob.date,
+        lastname: name.last,
+        avatar: picture.large,
+        firstname: name.first,
+        instagram: `${name.first}`,
+      };
+
+      const { status } = await api.post('/auth/signup', data);
       expect(status).equals(200);
     });
   });
