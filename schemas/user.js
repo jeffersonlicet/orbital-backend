@@ -1,11 +1,7 @@
 const Joi = require('@hapi/joi');
 
 export default Joi.object({
-  username: Joi.string()
-    .alphanum()
-    .min(3)
-    .max(30)
-    .required(),
+  avatar: Joi.string().required(),
   password: Joi.string()
     .min(6)
     .max(30)
@@ -13,6 +9,6 @@ export default Joi.object({
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
   instagram: Joi.string().required(),
-  birthdate: Joi.date,
+  birthday: Joi.date(),
   email: Joi.string().email().required(),
 });
