@@ -22,6 +22,24 @@ describe('Auth', () => {
       expect(status).equals(200);
     });
 
+    it('should fail if invalid email', async () => {
+      const {
+        name, dob, picture, password,
+      } = await mockUser();
+
+      const { status } = await api.post('/auth/signup', {
+        email: '123',
+        password,
+        birthday: dob.date,
+        lastname: name.last,
+        avatar: picture.large,
+        firstname: name.first,
+        instagram: `${name.first}`,
+      });
+
+      expect(status).equals(422);
+    });
+
     it('should fail if existing email', async () => {
       const {
         name, email, dob, picture, password,
@@ -39,6 +57,14 @@ describe('Auth', () => {
 
       const { status } = await api.post('/auth/signup', data);
       expect(status).equals(200);
+
+      const res = await api.post('/auth/signup', data);
+      expect(res.status).equals(422);
+    });
+
+    it('should fail if missing required param', async () => {
+      const { status } = await api.post('/auth/signup', {});
+      expect(status).equals(422);
     });
   });
 });
