@@ -12,14 +12,16 @@ const { models, sequelize } = initializeModels();
 const controllers = initializeControllers({ models, sequelize });
 
 const app = express();
+
 app.use(bodyParser.json());
 
 initializeRoutes(app, { ...controllers });
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   res.status(400).json(err);
 });
 
 app.listen(PORT, () => {
   console.log(`Listening on port:${PORT}`);
 });
+
