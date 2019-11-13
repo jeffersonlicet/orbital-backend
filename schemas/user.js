@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 
 export default Joi.object({
-  avatar: Joi.string().required(),
+  avatar: Joi.string().uri(),
   password: Joi.string()
     .min(6)
     .max(30)

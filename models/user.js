@@ -18,6 +18,7 @@ export default class User extends Sequelize.Model {
       lastname: Sequelize.STRING,
       instagram: Sequelize.STRING,
       locationEnabled: Sequelize.BOOLEAN,
+      avatar: Sequelize.STRING,
     },
     {
       sequelize,
