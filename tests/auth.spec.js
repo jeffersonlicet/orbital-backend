@@ -66,10 +66,5 @@ describe('Auth', () => {
       const { status } = await api.post('/auth/signup', {});
       expect(status).equals(422);
     });
-
-    it('should fail if wrong request', async () => {
-      const { status } = await api.get('/auth/signup');
-      expect(status).equals(422);
-    });
   });
 });
