@@ -4,12 +4,12 @@ import api from './api';
 
 describe('Auth', () => {
   describe('/signup', () => {
-    it('should register a user', async () => {
+    it('should signup and return the jwt', async () => {
       const {
         name, email, dob, picture, password,
       } = await mockUser();
 
-      const { status } = await api.post('/auth/signup', {
+      const { status, body } = await api.post('/auth/signup', {
         email,
         password,
         birthday: dob.date,
@@ -20,6 +20,8 @@ describe('Auth', () => {
       });
 
       expect(status).equals(200);
+      expect(body.user.firstname).equals(name.first);
+      expect(!!body.token).equal(true);
     });
 
     it('should fail if invalid email', async () => {
@@ -69,7 +71,29 @@ describe('Auth', () => {
   });
 
   describe('/login', () => {
-    it('should login and create the jwt token', async () => {
+    it('should login', async () => {
+      const {
+        name, email, dob, picture, password,
+      } = await mockUser();
+
+      const { status, body } = await api.post('/auth/signup', {
+        email,
+        password,
+        birthday: dob.date,
+        lastname: name.last,
+        avatar: picture.large,
+        firstname: name.first,
+        instagram: `${name.first}`,
+      });
+
+      expect(status).equals(200);
+      const res = await api.post('/auth/login', { email, password });
+      expect(res.status).equals(200);
+      expect(!!res.body.token).equal(true);
+      expect(res.body.user.id).equal(body.user.id);
+    });
+
+    it('should return error if invalid credentials', async () => {
       const {
         name, email, dob, picture, password,
       } = await mockUser();
@@ -86,8 +110,30 @@ describe('Auth', () => {
 
       expect(status).equals(200);
 
+      const res = await api.post('/auth/login', { email, password: '1234567' });
+      expect(res.status).equals(400);
+    });
+
+    it('should login', async () => {
+      const {
+        name, email, dob, picture, password,
+      } = await mockUser();
+
+      const { status, body } = await api.post('/auth/signup', {
+        email,
+        password,
+        birthday: dob.date,
+        lastname: name.last,
+        avatar: picture.large,
+        firstname: name.first,
+        instagram: `${name.first}`,
+      });
+
+      expect(status).equals(200);
       const res = await api.post('/auth/login', { email, password });
       expect(res.status).equals(200);
+      expect(!!res.body.token).equal(true);
+      expect(res.body.user.id).equal(body.user.id);
     });
   });
 });

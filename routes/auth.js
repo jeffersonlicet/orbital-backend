@@ -19,16 +19,14 @@ const authRouter = ({
 
   router.post('/signup', validate(UserCreationSchema), errorHandler(async (req, res) => {
     const user = await userController.create(req.body);
-    res.send({ user });
+    const token = jwt.sign(user.id, process.env.JWT_SECRET);
+    res.send({ user, token });
   }));
 
   router.post('/login', validate(UserLoginSchema), errorHandler(async (req, res) => {
     passport.authenticate('local', { session: false }, (err, user) => {
       if (err || !user) {
-        res.status(400).json({
-          message: 'Something is not right',
-          user,
-        });
+        res.status(400).json({ message: 'Something is not right' });
       } else {
         req.login(user, { session: false }, (loginError) => {
           if (loginError) {
