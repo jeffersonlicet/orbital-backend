@@ -114,26 +114,9 @@ describe('Auth', () => {
       expect(res.status).equals(400);
     });
 
-    it('should login', async () => {
-      const {
-        name, email, dob, picture, password,
-      } = await mockUser();
-
-      const { status, body } = await api.post('/auth/signup', {
-        email,
-        password,
-        birthday: dob.date,
-        lastname: name.last,
-        avatar: picture.large,
-        firstname: name.first,
-        instagram: `${name.first}`,
-      });
-
-      expect(status).equals(200);
-      const res = await api.post('/auth/login', { email, password });
-      expect(res.status).equals(200);
-      expect(!!res.body.token).equal(true);
-      expect(res.body.user.id).equal(body.user.id);
+    it('should be unauthorized if invalid token', async () => {
+      const res = await api.get('/user/1', '123');
+      expect(res.status).equals(401);
     });
   });
 });
