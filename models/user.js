@@ -13,7 +13,6 @@ export default class User extends Sequelize.Model {
       updatedAt: Sequelize.DATE,
       birthday: Sequelize.DATE,
       password: Sequelize.STRING,
-      username: Sequelize.STRING,
       email: Sequelize.STRING,
       firstname: Sequelize.STRING,
       lastname: Sequelize.STRING,
