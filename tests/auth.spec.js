@@ -113,10 +113,5 @@ describe('Auth', () => {
       const res = await api.post('/auth/login', { email, password: '1234567' });
       expect(res.status).equals(400);
     });
-
-    it('should be unauthorized if invalid token', async () => {
-      const res = await api.get('/user/1', '123');
-      expect(res.status).equals(401);
-    });
   });
 });
