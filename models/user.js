@@ -40,6 +40,13 @@ export default class User extends Sequelize.Model {
     });
   }
 
+  buildView() {
+    const attrs = this.dataValues;
+    delete attrs.password;
+    delete attrs.email;
+    return attrs;
+  }
+
   static associate(models) {
     this.hasMany(models.Invitation, { foreignKey: 'inviterId', as: 'invitationsSent' });
     this.hasMany(models.Invitation, { foreignKey: 'inviteeId', as: 'invitationsReceived' });
