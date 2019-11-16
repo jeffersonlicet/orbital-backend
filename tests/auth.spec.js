@@ -67,4 +67,27 @@ describe('Auth', () => {
       expect(status).equals(422);
     });
   });
+
+  describe('/login', () => {
+    it('should login and create the jwt token', async () => {
+      const {
+        name, email, dob, picture, password,
+      } = await mockUser();
+
+      const { status } = await api.post('/auth/signup', {
+        email,
+        password,
+        birthday: dob.date,
+        lastname: name.last,
+        avatar: picture.large,
+        firstname: name.first,
+        instagram: `${name.first}`,
+      });
+
+      expect(status).equals(200);
+
+      const res = await api.post('/auth/login', { email, password });
+      expect(res.status).equals(200);
+    });
+  });
 });
