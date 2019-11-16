@@ -17,18 +17,18 @@ const controllers = initializeControllers({ models, sequelize });
 passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
-}, async (email, password, done) => {
+}, async (email, password, next) => {
   try {
     const user = await models.User.scope('admin').findOne({ where: { email } });
     const passwordsMatch = await compare(password, user.password);
 
     if (passwordsMatch) {
-      done(null, user);
+      next(null, user.buildView());
     } else {
-      done('Incorrect email / Password');
+      next(new Error('Invalid password or email'));
     }
   } catch (error) {
-    done(error);
+    next(error);
   }
 }));
 
