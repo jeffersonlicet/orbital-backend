@@ -11,8 +11,12 @@ export default class UserController extends BaseController {
     }
   }
 
-  async test() {
-    console.log(await this.userModel.findAll());
-    console.log(' inside controller ');
+  async findById(id) {
+    try {
+      const user = await this.userModel.findOne({ where: { id } });
+      return user.buildView();
+    } catch (ex) {
+      throw new Error(`Can't find user`);
+    }
   }
 }
