@@ -58,4 +58,16 @@ describe('User', () => {
       expect(res.body.user.firstname).equals(name.first);
     });
   });
+
+  describe('/user/:userId', () => {
+    it('should fail if invalid token', async () => {
+      const { status } = await api.get('/user/1');
+      expect(status).equals(401);
+    });
+
+    it('should return user relative state', async () => {
+      const { status, body } = await api.get(`/user/${bob.id}`, alice.token);
+      expect(status).equals(200);
+    });
+  });
 });
