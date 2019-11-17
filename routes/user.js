@@ -1,17 +1,25 @@
 import express from 'express';
-import passport from 'passport';
+import validate from '../helpers/validation';
+import UserEditionSchema from '../schemas/userEdition';
+
 import errorHandler from './middlewares/errorHandler';
+import authenticated from './middlewares/authenticated';
 
 const userRoutes = ({
   userController,
 }) => {
   const router = express.Router();
 
-  router.get('/', (req, res) => {
-    res.send('User base');
-  });
+  router.get('/', authenticated, errorHandler((req, res) => {
+    res.send({ user: req.user });
+  }));
 
-  router.get('/:userId', passport.authenticate('jwt', { session: false }), errorHandler(async (req, res) => {
+  router.put('/', authenticated, validate(UserEditionSchema), errorHandler(async (req, res) => {
+    const user = await userController.update(req.user, req.body);
+    res.send({ user });
+  }));
+
+  router.get('/:userId', authenticated, errorHandler(async (req, res) => {
     const user = await userController.findById(req.params.userId);
     res.send({ user });
   }));
