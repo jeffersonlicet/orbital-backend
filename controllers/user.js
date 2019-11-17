@@ -11,6 +11,15 @@ export default class UserController extends BaseController {
     }
   }
 
+  async update(user, body) {
+    try {
+      return await this.userModel.update(body, { where: { id: user.id } });
+    } catch (ex) {
+      console.log(ex);
+      throw new Error(`Can't update user`);
+    }
+  }
+
   async findById(id) {
     try {
       const user = await this.userModel.findOne({ where: { id } });
