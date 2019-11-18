@@ -1,4 +1,4 @@
-const TABLE_NAME = 'friends';
+const TABLE_NAME = 'friendship';
 
 module.exports = {
   up: async (queryInterface) => {
@@ -6,11 +6,13 @@ module.exports = {
     await queryInterface.bulkInsert(TABLE_NAME, [
       {
         createdAt: new Date(),
+        updatedAt: new Date(),
         userId: baten.id,
         friendId: capella.id,
       },
       {
         createdAt: new Date(),
+        updatedAt: new Date(),
         userId: capella.id,
         friendId: baten.id,
       },
