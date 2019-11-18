@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import mockUser from './mock';
+import { rawUser } from './mock';
 import api from './api';
 
 describe('Auth', () => {
@@ -7,7 +7,7 @@ describe('Auth', () => {
     it('should signup and return the jwt', async () => {
       const {
         name, email, dob, picture, password,
-      } = await mockUser();
+      } = await rawUser();
 
       const { status, body } = await api.post('/auth/signup', {
         email,
@@ -27,7 +27,7 @@ describe('Auth', () => {
     it('should fail if invalid email', async () => {
       const {
         name, dob, picture, password,
-      } = await mockUser();
+      } = await rawUser();
 
       const { status } = await api.post('/auth/signup', {
         email: '123',
@@ -45,7 +45,7 @@ describe('Auth', () => {
     it('should fail if existing email', async () => {
       const {
         name, email, dob, picture, password,
-      } = await mockUser();
+      } = await rawUser();
 
       const data = {
         email,
@@ -74,7 +74,7 @@ describe('Auth', () => {
     it('should login', async () => {
       const {
         name, email, dob, picture, password,
-      } = await mockUser();
+      } = await rawUser();
 
       const { status, body } = await api.post('/auth/signup', {
         email,
@@ -96,7 +96,7 @@ describe('Auth', () => {
     it('should return error if invalid credentials', async () => {
       const {
         name, email, dob, picture, password,
-      } = await mockUser();
+      } = await rawUser();
 
       const { status } = await api.post('/auth/signup', {
         email,
