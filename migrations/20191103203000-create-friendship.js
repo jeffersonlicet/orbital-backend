@@ -1,4 +1,4 @@
-const TABLE_NAME = 'friends';
+const TABLE_NAME = 'friendship';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -10,6 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
@@ -25,7 +29,7 @@ module.exports = {
 
     await queryInterface.addConstraint(TABLE_NAME, ['userId'], {
       type: 'FOREIGN KEY',
-      name: 'FK_friends_userId_user',
+      name: 'FK_friendship_userId_user',
       references: {
         table: 'users',
         field: 'id',
@@ -36,7 +40,7 @@ module.exports = {
 
     await queryInterface.addConstraint(TABLE_NAME, ['friendId'], {
       type: 'FOREIGN KEY',
-      name: 'FK_friends_friendId_user',
+      name: 'FK_friendship_friendId_user',
       references: {
         table: 'users',
         field: 'id',
