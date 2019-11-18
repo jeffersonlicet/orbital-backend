@@ -60,6 +60,7 @@ app.use(bodyParser.json());
 initializeRoutes(app, { ...controllers });
 
 app.use((err, req, res, next) => {
+  console.log(err);
   res.status(422).json(err);
 });
 
