@@ -48,9 +48,22 @@ export default class User extends Sequelize.Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Invitation, { foreignKey: 'inviterId', as: 'invitationsSent' });
-    this.hasMany(models.Invitation, { foreignKey: 'inviteeId', as: 'invitationsReceived' });
+    this.belongsToMany(models.User, {
+      foreignKey: 'inviterId',
+      through: 'invitation',
+      as: 'invitationsSent',
+      otherKey: 'inviterId',
+    });
+
     this.hasOne(models.Orbit, { foreignKey: 'userId' });
+
+    this.belongsToMany(models.User, {
+      foreignKey: 'inviteeId',
+      through: 'invitation',
+      as: 'invitationsReceived',
+      otherKey: 'inviteeId',
+    });
+
     this.belongsToMany(models.User, { through: 'friendship', as: 'friends' });
   }
 }

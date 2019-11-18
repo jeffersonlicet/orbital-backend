@@ -9,6 +9,8 @@ export default class Invitation extends Sequelize.Model {
         primaryKey: true,
       },
       inviteeId: Sequelize.NUMBER,
+      inviterId: Sequelize.NUMBER,
+      status: Sequelize.STRING,
     },
     {
       sequelize,

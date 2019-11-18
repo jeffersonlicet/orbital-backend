@@ -7,6 +7,7 @@ export default class UserController extends BaseController {
       const user = await this.userModel.create(body);
       return user.buildView();
     } catch (ex) {
+      console.log(ex);
       throw new Error(`Can't register user`);
     }
   }
