@@ -24,7 +24,7 @@ export default class InvitationsController extends BaseController {
       );
     } catch (ex) {
       console.log(ex);
-      throw new Error('Can\'t find friends user');
+      throw new Error('Can\'t fetch user invitations');
     }
   }
 
@@ -41,7 +41,7 @@ export default class InvitationsController extends BaseController {
       return invitation;
     } catch (ex) {
       console.log(ex);
-      throw new Error('Can\'t find friends user');
+      throw new Error('Can\'t create invitation');
     }
   }
 
@@ -49,21 +49,20 @@ export default class InvitationsController extends BaseController {
     try {
       const invitation = this.invitationModel.findOne({ where: { id } });
 
-      if (invitation) {
-        await invitation.destroy();
+      if (invitation && invitation.status === INVITATION_TYPES.pending) {
+        await invitation.update({ status: INVITATION_TYPES.rejected });
       }
 
       return id;
     } catch (ex) {
       console.log(ex);
-      throw new Error('Can\'t find friends user');
+      throw new Error('Can\'t decline invitation');
     }
   }
 
   async accept(user, id) {
     try {
       const invitation = await this.invitationModel.findOne({ where: { id, inviteeId: user.id } });
-      console.log(invitation);
       if (invitation && invitation.status === INVITATION_TYPES.pending) {
         await this.friendModel.create({
           userId: invitation.inviterId,
@@ -83,7 +82,7 @@ export default class InvitationsController extends BaseController {
       return {};
     } catch (ex) {
       console.log(ex);
-      throw new Error('Can\'t find friends user');
+      throw new Error('Can\'t accept invitation');
     }
   }
 }
