@@ -29,4 +29,28 @@ export default class UserController extends BaseController {
       throw new Error(`Can't find user`);
     }
   }
+
+  async findStateById(user, id) {
+    try {
+      const friend = await this.userModel.findOne({ where: { id } });
+
+      if (!friend) {
+        throw new Error('Can\'t find user');
+      }
+
+      const isFriend = await this.friendModel.findOne({
+        where: {
+          userId: user.id,
+          friendId: friend.id,
+        },
+      });
+
+      return { isFriend };
+    } catch (ex) {
+      console.log(ex);
+      // TODO: throw error
+    }
+
+    return {};
+  }
 }
