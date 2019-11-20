@@ -5,6 +5,7 @@ import api from './api';
 describe('User', () => {
   let alice;
   let bob;
+
   before(async () => {
     alice = await mockUser();
     bob = await mockUser();
@@ -42,10 +43,9 @@ describe('User', () => {
       expect(status).equals(401);
     });
 
-    /*it('should return user relative state', async () => {
-      const { status, body } = await api.get(`/user/${bob.id}`, alice.token);
+    it('should return user relative state', async () => {
+      const { status } = await api.get(`/user/${bob.id}`, alice.token);
       expect(status).equals(200);
     });
-    */
   });
 });

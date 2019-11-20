@@ -3,6 +3,7 @@ import request from 'supertest';
 const PORT = process.env.PORT || 8080;
 const api = request(`http://localhost:${PORT}`);
 const { post, get, put } = api;
+
 api.post = (endpoint, data, token) => {
   const method = post(endpoint)
     .send(data)
