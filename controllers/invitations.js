@@ -5,6 +5,7 @@ import BaseController from './BaseController';
 import { INVITATION_TYPES } from '../helpers/invitation';
 
 export default class InvitationsController extends BaseController {
+  // Only returns pending invitations
   async fetch(user, type, { offset, count }) {
     const typesMap = {
       sent: user.getInvitationsSent,
@@ -45,15 +46,17 @@ export default class InvitationsController extends BaseController {
     }
   }
 
-  async decline(id) {
+  async decline(user, id) {
     try {
-      const invitation = this.invitationModel.findOne({ where: { id } });
+      const invitation = await this.invitationModel.findOne({ where: { id, inviteeId: user.id } });
 
       if (invitation && invitation.status === INVITATION_TYPES.pending) {
         await invitation.update({ status: INVITATION_TYPES.rejected });
+      } else {
+        throw new Error('invalid invitation');
       }
 
-      return id;
+      return { id };
     } catch (ex) {
       console.log(ex);
       throw new Error('Can\'t decline invitation');

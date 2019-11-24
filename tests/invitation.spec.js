@@ -98,4 +98,47 @@ describe('Invitation', () => {
       expect(res2.status).equals(422);
     });
   });
+
+  describe('/invitations/decline', () => {
+    it('should fail if invalid token', async () => {
+      const { status } = await api.post('/invitations/decline');
+      expect(status).equals(401);
+    });
+
+    it('should fail if missing invitation id', async () => {
+      const { status } = await api.post('/invitations/decline', {}, alice.token);
+      expect(status).equals(422);
+    });
+
+    it('should decline the invitation', async () => {
+      await api.post('/invitations/invite', { userId: bob.id }, alice.token);
+      const res = await api.get('/invitations/received', bob.token);
+      const { status } = await api.post('/invitations/decline', {
+        invitationId: res.body[0].invitation.id,
+      }, bob.token);
+      expect(status).equals(200);
+
+      const res2 = await api.get('/invitations/received', bob.token);
+      expect(res2.body.length).equals(0);
+
+      // TODO: Return user state as non friends
+    });
+
+    it('should noop if already declined the invitation', async () => {
+      await api.post('/invitations/invite', { userId: bob.id }, alice.token);
+      const res = await api.get('/invitations/received', bob.token);
+
+      const { status } = await api.post('/invitations/decline', {
+        invitationId: res.body[0].invitation.id,
+      }, bob.token);
+
+      expect(status).equals(200);
+
+      const res2 = await api.post('/invitations/decline', {
+        invitationId: res.body[0].id,
+      }, bob.token);
+
+      expect(res2.status).equals(422);
+    });
+  });
 });
