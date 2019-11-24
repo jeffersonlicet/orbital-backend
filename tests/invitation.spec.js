@@ -2,15 +2,13 @@ import { expect } from 'chai';
 import mockUser from './mock';
 import api from './api';
 
-describe.only('Invitation', () => {
+describe('Invitation', () => {
   let alice;
   let bob;
-  let charlie;
 
   beforeEach(async () => {
     alice = await mockUser();
     bob = await mockUser();
-    charlie = await mockUser();
   });
 
   describe('/invitations/invite', () => {
@@ -59,7 +57,7 @@ describe.only('Invitation', () => {
     });
   });
 
-  describe.only('/invitations/accept', () => {
+  describe('/invitations/accept', () => {
     it('should fail if invalid token', async () => {
       const { status } = await api.post('/invitations/accept');
       expect(status).equals(401);

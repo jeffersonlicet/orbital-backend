@@ -27,7 +27,6 @@ export const rawUser = () => {
 const user = async () => {
   const randomUser = rawUser();
   const res = await api.post('/auth/signup', randomUser);
-  console.log(res.body);
   return {
     ...randomUser,
     id: res.body.user.id,
