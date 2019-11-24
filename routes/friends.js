@@ -12,6 +12,10 @@ const friendsRoutes = ({
     res.send(await friendsController.fetch(req.user, req.query));
   }));
 
+  router.post('/remove', authenticated, errorHandler(async (req, res) => {
+    res.send(await friendsController.remove(req.user, req.body.userId));
+  }));
+
   return router;
 };
 
