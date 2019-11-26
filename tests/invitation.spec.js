@@ -79,6 +79,10 @@ describe('Invitation', () => {
 
       const res2 = await api.get('/invitations/received', bob.token);
       expect(res2.body.length).equals(0);
+
+      const res3 = await api.get(`/user/${alice.id}`, bob.token);
+      expect(res3.status).equals(200);
+      expect(res3.body.isFriend).equals(true);
     });
 
     it('should noop if already accepted the invitation', async () => {
@@ -121,7 +125,9 @@ describe('Invitation', () => {
       const res2 = await api.get('/invitations/received', bob.token);
       expect(res2.body.length).equals(0);
 
-      // TODO: Return user state as non friends
+      const res3 = await api.get(`/user/${alice.id}`, bob.token);
+      expect(res3.status).equals(200);
+      expect(res3.body.isFriend).equals(false);
     });
 
     it('should noop if already declined the invitation', async () => {
