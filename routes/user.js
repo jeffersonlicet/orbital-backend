@@ -20,8 +20,8 @@ const userRoutes = ({
   }));
 
   router.get('/:userId', authenticated, errorHandler(async (req, res) => {
-    const state = await userController.findStateById(req.params.userId);
-    res.send({ state });
+    const state = await userController.findStateById(req.user, req.params.userId);
+    res.send(state);
   }));
 
   return router;
