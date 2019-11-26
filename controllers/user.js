@@ -45,7 +45,7 @@ export default class UserController extends BaseController {
         },
       });
 
-      return { isFriend };
+      return { ...friend.buildView(), isFriend: !!isFriend };
     } catch (ex) {
       console.log(ex);
       // TODO: throw error
