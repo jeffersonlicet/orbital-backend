@@ -44,8 +44,9 @@ describe('User', () => {
     });
 
     it('should return user relative state', async () => {
-      const { status } = await api.get(`/user/${bob.id}`, alice.token);
+      const { status, body } = await api.get(`/user/${bob.id}`, alice.token);
       expect(status).equals(200);
+      expect(body.isFriend).equals(false);
     });
   });
 });
